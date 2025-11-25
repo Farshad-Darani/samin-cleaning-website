@@ -109,9 +109,9 @@ function openBookingModal(serviceType = '') {
             const serviceMap = {
                 'Regular Cleaning': 'regular',
                 'Deep Cleaning': 'deep',
-                'Move In/Out': 'move',
-                'Post-Construction': 'construction',
-                'Commercial Cleaning': 'commercial',
+                'Move In/Out Cleaning': 'move',
+                'Post-Construction Cleaning': 'construction',
+                'Boat Cleaning': 'boat',
                 'Office Cleaning': 'office'
             };
             const mappedValue = serviceMap[serviceType];
@@ -181,6 +181,34 @@ animatedElements.forEach(el => {
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
+
+// ============================================
+// Guarantee Section Video Overlay Animation
+// ============================================
+const guaranteeSection = document.querySelector('.our-guarantee');
+const guaranteeSlogans = document.querySelector('.guarantee-slogans');
+
+if (guaranteeSection && guaranteeSlogans) {
+    const overlayObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // First: Fade in overlay/gradient
+                setTimeout(() => {
+                    guaranteeSection.classList.add('overlay-visible');
+                }, 300);
+                
+                // Second: Show slogans after overlay appears
+                setTimeout(() => {
+                    guaranteeSlogans.classList.add('slogan-visible');
+                }, 1300); // Wait for overlay to fade in first (300ms + 1000ms transition)
+            }
+        });
+    }, {
+        threshold: 0.2 // Trigger when 20% of section is visible
+    });
+    
+    overlayObserver.observe(guaranteeSection);
+}
 
 // ============================================
 // Phone Number Formatting
@@ -339,8 +367,10 @@ serviceCards.forEach(card => {
             if (inner) {
                 if (isFlipped) {
                     inner.style.transform = 'rotateY(0deg)';
+                    card.classList.remove('flipped');
                 } else {
                     inner.style.transform = 'rotateY(180deg)';
+                    card.classList.add('flipped');
                 }
                 isFlipped = !isFlipped;
             }
@@ -353,6 +383,7 @@ serviceCards.forEach(card => {
             const inner = card.querySelector('.service-card-inner');
             if (inner) {
                 inner.style.transform = 'rotateY(0deg)';
+                card.classList.remove('flipped');
                 isFlipped = false;
             }
         }
