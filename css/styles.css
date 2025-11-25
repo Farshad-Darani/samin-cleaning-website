@@ -1282,6 +1282,13 @@ section {
     background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 30%, var(--primary-color) 70%, var(--dark-blue) 100%);
     color: var(--white);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.final-cta .container {
+    position: relative;
+    z-index: 2;
 }
 
 .final-cta h2 {
